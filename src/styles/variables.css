@@ -1,0 +1,31 @@
+:root {
+  /* 主色调 */
+  --primary: #6a0dad;
+  --primary-light: #a679e1;
+  --primary-dark: #5a0ca5;
+  
+  /* 背景色 */
+  --bg-main: #f6f0fc;
+  --bg-card: #ffffff;
+  
+  /* 文本颜色 */
+  --text-primary: #2c003e;
+  --text-secondary: #7a4fa1;
+  
+  /* 边框颜色 */
+  --border-color: #d6c8e9;
+  
+  /* 状态颜色 */
+  --success: #28a745;
+  --danger: #dc3545;
+  --warning: #ffc107;
+  --info: #17a2b8;
+  
+  /* 尺寸 */
+  --border-radius: 10px;
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}

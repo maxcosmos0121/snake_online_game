@@ -1,0 +1,26 @@
+/* 布局相关样式 */
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg);
+}
+
+.content {
+  display: flex;
+  gap: var(--spacing-lg);
+  height: calc(78vh - 150px);
+  overflow: hidden;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .layout {
+    padding: var(--spacing-md);
+  }
+}

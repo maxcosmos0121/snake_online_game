@@ -1,0 +1,153 @@
+/* 游戏房间样式 */
+
+.room-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.room-header h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.3rem;
+}
+
+.room-content {
+  display: flex;
+  gap: var(--spacing-lg);
+  flex: 1;
+  overflow: hidden;
+}
+
+/* 玩家列表区域 */
+.players-section {
+  flex: 2;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.players-section h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.players-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.player-item {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.player-item:last-child {
+  border-bottom: none;
+}
+
+.player-item.ready {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.player-item.current-player {
+  background-color: rgba(106, 13, 173, 0.1);
+}
+
+.player-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.player-status {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.room-actions {
+  margin-top: var(--spacing-md);
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+}
+
+/* 聊天区域 */
+.chat-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.chat-section h3 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  background: #f8f9fa;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+
+.chat-message {
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.chat-input-area {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.game-status {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid rgba(40, 167, 69, 0.2);
+  border-radius: var(--border-radius);
+  text-align: center;
+  color: var(--success);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .room-content {
+    flex-direction: column;
+  }
+  
+  .players-section,
+  .chat-section {
+    height: 300px;
+  }
+}
