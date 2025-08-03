@@ -5,6 +5,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0; /* 允许容器收缩 */
+  /* 确保房间容器能够充分利用可用高度 */
+  flex: 1;
 }
 
 .room-header {
@@ -12,6 +15,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-lg);
+  flex-shrink: 0; /* 防止头部被压缩 */
 }
 
 .room-header h2 {
@@ -25,6 +29,9 @@
   gap: var(--spacing-lg);
   flex: 1;
   overflow: hidden;
+  min-height: 0; /* 允许内容区域收缩 */
+  /* 确保内容区域能够充分利用剩余空间 */
+  height: 100%;
 }
 
 /* 玩家列表区域 */
@@ -37,6 +44,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  min-height: 0; /* 允许收缩 */
+  /* 确保玩家区域能够适应高度 */
+  height: 100%;
 }
 
 .players-section h3 {
@@ -45,11 +55,15 @@
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-color);
   padding-bottom: var(--spacing-sm);
+  flex-shrink: 0; /* 防止标题被压缩 */
 }
 
 .players-list {
   flex: 1;
   overflow-y: auto;
+  min-height: 0; /* 允许收缩 */
+  /* 确保玩家列表能够充分利用可用空间 */
+  height: 100%;
 }
 
 .player-item {
@@ -87,6 +101,7 @@
   display: flex;
   gap: var(--spacing-md);
   justify-content: flex-end;
+  flex-shrink: 0; /* 防止操作区域被压缩 */
 }
 
 /* 聊天区域 */
@@ -99,6 +114,9 @@
   border-radius: var(--border-radius);
   padding: var(--spacing-lg);
   overflow: hidden;
+  min-height: 0; /* 允许收缩 */
+  /* 确保聊天区域能够充分利用可用高度 */
+  height: 100%;
 }
 
 .chat-section h3 {
@@ -107,6 +125,7 @@
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-color);
   padding-bottom: var(--spacing-sm);
+  flex-shrink: 0; /* 防止标题被压缩 */
 }
 
 .chat-box {
@@ -117,6 +136,9 @@
   padding: var(--spacing-md);
   margin-bottom: var(--spacing-md);
   border-radius: var(--border-radius);
+  min-height: 0; /* 允许收缩 */
+  /* 确保聊天框能够充分利用可用空间 */
+  height: 100%;
 }
 
 .chat-message {
@@ -128,6 +150,20 @@
 .chat-input-area {
   display: flex;
   gap: var(--spacing-sm);
+  flex-shrink: 0; /* 防止输入区域被压缩 */
+  align-items: center;
+  /* 确保输入区域有固定高度 */
+  height: auto;
+}
+
+.chat-input-area .form-control {
+  flex: 1;
+  min-width: 0; /* 允许输入框收缩 */
+}
+
+.chat-input-area .btn {
+  flex-shrink: 0; /* 防止按钮被压缩 */
+  white-space: nowrap;
 }
 
 .game-status {
@@ -138,16 +174,59 @@
   border-radius: var(--border-radius);
   text-align: center;
   color: var(--success);
+  flex-shrink: 0; /* 防止状态区域被压缩 */
 }
 
 /* 响应式调整 */
 @media (max-width: 768px) {
   .room-content {
     flex-direction: column;
+    min-height: 0;
+    /* 在移动端确保内容区域能够充分利用高度 */
+    height: auto;
+    flex: 1;
   }
   
   .players-section,
   .chat-section {
-    height: 300px;
+    min-height: 250px; /* 设置最小高度而不是固定高度 */
+    max-height: none; /* 移除最大高度限制，允许自适应 */
+    height: auto;
+    flex: 1;
+  }
+  
+  .room-header {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .room-header h2 {
+    font-size: 1.1rem;
+  }
+}
+
+/* 超小屏幕适配 */
+@media (max-width: 480px) {
+  .room-header {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    text-align: center;
+  }
+  
+  .players-section,
+  .chat-section {
+    min-height: 200px;
+    max-height: none; /* 移除最大高度限制 */
+    padding: var(--spacing-md);
+    height: auto;
+    flex: 1;
+  }
+  
+  .chat-input-area {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .chat-input-area .btn {
+    width: 100%;
   }
 }
