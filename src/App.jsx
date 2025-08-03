@@ -1,8 +1,13 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import {useState, useEffect} from 'react';
+import {io} from 'socket.io-client';
 
-const socket = io('http://localhost:8000'); // 修改为你的后端地址
+console.log(import.meta.env.VITE_SOCKET_URL)
+const socket = io(import.meta.env.VITE_SOCKET_URL, {
+    autoConnect: true,
+    reconnectionAttempts: 3,
+    timeout: 5000,
+});
 
 function App() {
     const [onlineCount, setOnlineCount] = useState(0);
@@ -10,39 +15,45 @@ function App() {
     const [joinUsername, setJoinUsername] = useState('');
     const [joinRoomId, setJoinRoomId] = useState('');
     const [createUsername, setCreateUsername] = useState('');
+    const [connectionError, setConnectionError] = useState(false);
 
     useEffect(() => {
-        // 请求最新人数和房间列表
-        socket.emit('get_user_count');
-        socket.emit('list_rooms');
+        socket.on('connect', () => {
+            setConnectionError(false);
+            socket.emit('get_user_count');
+            socket.emit('list_rooms');
+        });
 
-        // 监听在线人数更新
+        socket.on('connect_error', () => {
+            setConnectionError(true);
+        });
+
+        socket.on('disconnect', () => {
+            setConnectionError(true);
+        });
+
         socket.on('user_count', (data) => {
             setOnlineCount(data.count);
         });
 
-        // 监听房间列表更新
         socket.on('room_list_update', (data) => {
             setRooms(data.rooms || []);
         });
 
-        // 加入房间成功后处理（可以加跳转或弹窗）
         socket.on('room_info', (info) => {
             console.log('加入房间成功:', info);
         });
 
-        // 创建房间成功后处理
         socket.on('room_created', (data) => {
             console.log('房间创建成功:', data);
         });
 
-        // 错误处理
         socket.on('error', (data) => {
             alert(data.message);
         });
 
         return () => {
-            socket.off(); // 清理所有事件监听
+            socket.off();
         };
     }, []);
 
@@ -69,6 +80,12 @@ function App() {
                 <div className="logo">🐍 贪吃蛇 Online</div>
                 <div className="status">在线人数：{onlineCount}</div>
             </header>
+
+            {connectionError && (
+                <div className="error-banner">
+                    无法连接服务器，请检查网络或刷新重试。
+                </div>
+            )}
 
             <main className="content">
                 <aside className="room-list">

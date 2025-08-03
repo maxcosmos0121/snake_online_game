@@ -237,3 +237,12 @@ button:hover {
 button:active {
     transform: scale(0.98);
 }
+
+.error-banner {
+    background-color: #ffcccc;
+    color: #b30000;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
